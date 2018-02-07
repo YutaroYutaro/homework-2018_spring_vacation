@@ -16,6 +16,9 @@ res = client.get('https://portal.student.kit.ac.jp/')
 #finally:
 #    client.close()
 
-#res = requests.get('https://portal.student.kit.ac.jp/')
+res.raise_for_status()
 print(res.text)
+# f = open('submit1.html', 'w') # 書き込みモードで開く
+# f.write(res.text) # 引数の文字列をファイルに書き込む
+# f.close() # ファイルを閉じる
 client.close()
