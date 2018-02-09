@@ -2,7 +2,7 @@
 
 import bs4
 import requests
-import sql
+from sql import SqlFunction
 from shibboleth_login import ShibbolethClient
 
 dbname = 'database.db'
@@ -22,18 +22,42 @@ dbname = 'database.db'
 #     categorys = soup.select('.nl_category')
 #     notices = soup.select('.nl_notice')
 
-#     for (i, date, charge, category, notice) in zip(range(1,len(dates)), dates[1:], charges[1:], categorys[1:], notices[1:]):
-#         sql.insert(dbname, i, date.get_text(), charge.get_text(), category.get_text(), notice.get_text())
+    # table = SqlFunction(dbname)
 
-#     sql.update(dbname, 1, 'date', 'charge', 'category', 'notice')
+    # table.create()
 
-#     sql.delete(dbname)
+    # for (i, date, charge, category, notice) in zip(range(1,len(dates)), dates[1:], charges[1:], categorys[1:], notices[1:]):
+    #     table.insert(i, date.get_text(), charge.get_text(), category.get_text(), notice.get_text())
 
-#     sql.delete_id(dbname, 1)
+    # table.update(1, 'date', 'charge', 'category', 'notice')
 
-#     sql.select(dbname)
+    # table.delete()
 
-#     sql.select_id(dbname, 1)
+    # table.delete_id(1)
+
+    # table.select()
+
+    # table.select_id(2)
+
+    # table.close()
+
+
+    # with SqlFunction(dbname) as table:
+    #     table.create()
+
+    #     for (i, date, charge, category, notice) in zip(range(1,len(dates)), dates[1:], charges[1:], categorys[1:], notices[1:]):
+    #         table.insert(i, date.get_text(), charge.get_text(), category.get_text(), notice.get_text())
+
+    #     table.update(1, 'date', 'charge', 'category', 'notice')
+
+    #     table.delete()
+
+    #     table.delete_id(1)
+
+    #     table.select()
+
+    #     table.select_id(2)
+
 
 with open('submit1.html', 'r') as f:
 
@@ -44,16 +68,40 @@ with open('submit1.html', 'r') as f:
     categorys = soup.select('.nl_category')
     notices = soup.select('.nl_notice')
 
+    # table = SqlFunction(dbname)
+
+    # table.create()
+
     # for (i, date, charge, category, notice) in zip(range(1,len(dates)), dates[1:], charges[1:], categorys[1:], notices[1:]):
-    #     sql.insert(dbname, i, date.get_text(), charge.get_text(), category.get_text(), notice.get_text())
+    #     table.insert(i, date.get_text(), charge.get_text(), category.get_text(), notice.get_text())
 
-    # sql.update(dbname, 1, 'date', 'charge', 'category', 'notice')
+    # table.update(1, 'date', 'charge', 'category', 'notice')
 
-    # sql.delete(dbname)
+    # table.delete()
 
-    # sql.delete_id(dbname, 1)
+    # table.delete_id(1)
 
-    # sql.select(dbname)
+    # table.select()
 
-    # sql.select_id(dbname, 2)
+    # table.select_id(2)
+    
+    # table.close()
+    
+
+    # with SqlFunction(dbname) as table:
+    #     table.create()
+
+    #     for (i, date, charge, category, notice) in zip(range(1,len(dates)), dates[1:], charges[1:], categorys[1:], notices[1:]):
+    #         table.insert(i, date.get_text(), charge.get_text(), category.get_text(), notice.get_text())
+
+    #     table.update(1, 'date', 'charge', 'category', 'notice')
+
+    #     table.delete()
+
+    #     table.delete_id(1)
+
+    #     table.select()
+
+    #     table.select_id(2)
+
 
