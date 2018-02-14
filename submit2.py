@@ -3,9 +3,10 @@
 import bs4
 import requests
 from shibboleth_login import ShibbolethClient
+import settings
 
-# ID = input('your username: ')
-# PW = input('your passsword: ')
+# ID = settings.ID
+# PW = settings.PW
 
 # with ShibbolethClient(ID, PW) as client:
 #     res = client.get('https://portal.student.kit.ac.jp/')

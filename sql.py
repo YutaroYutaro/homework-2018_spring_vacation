@@ -13,17 +13,17 @@ class SqlFunction(object):
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.conn.close()
 
-    def create(self):
+    def create(self,table):
         c = self.conn.cursor()
-        create_table = '''create table info (id int, date varchar(32), charge varchar(32), category varchar(32), notice varchar)'''
-        c.execute(create_table)
+        create_table = '''create table %s (id int, date varchar(32), charge varchar(32), category varchar(32), notice varchar)'''
+        c.execute(create_table % table)
 
-    def insert(self, id, date, charge, category, notice):
+    def insert(self, table, id, date, charge, category, notice):
         c = self.conn.cursor()
-        insert_sql = '''insert into info (id, date, charge, category, notice) values (?,?,?,?,?)'''
+        insert_sql = '''insert into %s (id, date, charge, category, notice) values (?,?,?,?,?)'''
         info =  (id, date, charge, category, notice)
-        c.execute(insert_sql, info)
-        conn.commit()
+        c.execute(insert_sql % table, info)
+        self.conn.commit()
 
     def select(self):
         c = self.conn.cursor()
@@ -31,94 +31,54 @@ class SqlFunction(object):
         for row in c.execute(select_sql):
             print(row)
 
-    def select_id(self, id):
+    def select_id(self, table, id):
         self.conn.row_factory = sqlite3.Row
         c = self.conn.cursor()
-        select_id_sql = '''select * from info where id = ?'''
-        rows = c.execute(select_id_sql, (id,))
-        for row in rows:
-            print(row[1])
-            print(row[2])
-            print(row[3])
-            print(row[4])
+        select_id_sql = '''select * from %s where id = ?'''
+        rows = c.execute(select_id_sql % table, (id,))
+        return rows
 
-    def update(self, id, date, charge, category, notice):
+    def update(self, table, id, date, charge, category, notice):
         c = self.conn.cursor()
-        update_sql = '''update info set date = ?, charge = ?, category = ?, notice = ? where id = ?'''
+        update_sql = '''update %s set date = ?, charge = ?, category = ?, notice = ? where id = ?'''
         info =  (date, charge, category, notice, id)
-        c.execute(update_sql, info)
-        conn.commit()
+        c.execute(update_sql % table, info)
+        self.conn.commit()
 
-    def delete(self):
-        c = self.conn.cursor()
-        delete_sql = '''delete from info'''
-        c.execute(delete_sql)
-        conn.commit()
+    def compare(self, table1, table2):
+        c1 = self.conn.cursor()
+        c2 = self.conn.cursor()
+        select1_sql = '''select * from %s'''
+        select2_sql = '''select * from %s'''
+        c1.execute(select1_sql % table1)
+        c2.execute(select2_sql % table2)
+        cnt = 0
+        while c1.fetchone()[1:4] != c2.fetchone()[1:4]:
+            cnt += 1
+            print('ng')
+            if cnt >= 200:
+                cnt = 0
+                break
 
-    def delete_id(self, id):
+        return cnt
+
+    def delete(self, table):
         c = self.conn.cursor()
-        delete_id_sql = '''delete from info where id = ?'''
-        c.execute(delete_id_sql, (id,))
-        conn.commit()
+        delete_sql = '''delete from %s'''
+        c.execute(delete_sql % table)
+        self.conn.commit()
+
+    def delete_id(self, table, id):
+        c = self.conn.cursor()
+        delete_id_sql = '''delete from %s where id = ?'''
+        c.execute(delete_id_sql % table, (id,))
+        self.conn.commit()
+
+    def drop(self, table):
+        c = self.conn.cursor()
+        drop_dummy_sql = '''drop table %s'''
+        c.execute(drop_dummy_sql % table)
+        self.conn.commit()
 
     def close(self):
         self.conn.close()
-
-
-    
-
-
-# def create(dbname):
-#     with closing(sqlite3.connect(dbname)) as conn:
-#         c = conn.cursor()
-#         create_table = '''create table info (id int, date varchar(32), charge varchar(32), category varchar(32), notice varchar)'''
-#         c.execute(create_table)
-
-# def insert(dbname, id, date, charge, category, notice):
-#     with closing(sqlite3.connect(dbname)) as conn:
-#         c = conn.cursor()
-#         insert_sql = '''insert into info (id, date, charge, category, notice) values (?,?,?,?,?)'''
-#         info =  (id, date, charge, category, notice)
-#         c.execute(insert_sql, info)
-#         conn.commit()
-
-# def select(dbname):
-#     with closing(sqlite3.connect(dbname)) as conn:
-#         c = conn.cursor()
-#         select_sql = '''select * from info'''
-#         for row in c.execute(select_sql):
-#             print(row)
-
-# def select_id(dbname, id):
-#     with closing(sqlite3.connect(dbname)) as conn:
-#         conn.row_factory = sqlite3.Row
-#         c = conn.cursor()
-#         select_id_sql = '''select * from info where id = ?'''
-#         rows = c.execute(select_id_sql, (id,))
-#         for row in rows:
-#             print(row[1])
-#             print(row[2])
-#             print(row[3])
-#             print(row[4])
-
-# def update(dbname, id, date, charge, category, notice):
-#     with closing(sqlite3.connect(dbname)) as conn:
-#         c = conn.cursor()
-#         update_sql = '''update info set date = ?, charge = ?, category = ?, notice = ? where id = ?'''
-#         info =  (date, charge, category, notice, id)
-#         c.execute(update_sql, info)
-#         conn.commit()
-
-# def delete(dbname):
-#     with closing(sqlite3.connect(dbname)) as conn:
-#         c = conn.cursor()
-#         delete_sql = '''delete from info'''
-#         c.execute(delete_sql)
-#         conn.commit()
-
-# def delete_id(dbname, id):
-#     with closing(sqlite3.connect(dbname)) as conn:
-#         c = conn.cursor()
-#         delete_id_sql = '''delete from info where id = ?'''
-#         c.execute(delete_id_sql, (id,))
-#         conn.commit()

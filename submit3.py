@@ -4,13 +4,14 @@ import bs4
 import requests
 from sql import SqlFunction
 from shibboleth_login import ShibbolethClient
+import settings
 
-dbname = 'database.db'
+# ID = settings.ID
+# PW = settings.PW
+dbname = settings.dbname
+table1 = settings.table1
 
 # sql.create(dbname)
-
-# ID = input('your username: ')
-# PW = input('your passsword: ')
 
 # with ShibbolethClient(ID, PW) as client:
 #     res = client.get('https://portal.student.kit.ac.jp/')
@@ -22,41 +23,26 @@ dbname = 'database.db'
 #     categorys = soup.select('.nl_category')
 #     notices = soup.select('.nl_notice')
 
-    # table = SqlFunction(dbname)
-
-    # table.create()
-
-    # for (i, date, charge, category, notice) in zip(range(1,len(dates)), dates[1:], charges[1:], categorys[1:], notices[1:]):
-    #     table.insert(i, date.get_text(), charge.get_text(), category.get_text(), notice.get_text())
-
-    # table.update(1, 'date', 'charge', 'category', 'notice')
-
-    # table.delete()
-
-    # table.delete_id(1)
-
-    # table.select()
-
-    # table.select_id(2)
-
-    # table.close()
-
-
     # with SqlFunction(dbname) as table:
-    #     table.create()
+        # table.create(table1)
 
-    #     for (i, date, charge, category, notice) in zip(range(1,len(dates)), dates[1:], charges[1:], categorys[1:], notices[1:]):
-    #         table.insert(i, date.get_text(), charge.get_text(), category.get_text(), notice.get_text())
+        # for (i, date, charge, category, notice) in zip(range(1,len(dates)), dates[1:], charges[1:], categorys[1:], notices[1:]):
+        #     table.insert(i, date.get_text(), charge.get_text(), category.get_text(), notice.get_text())
 
-    #     table.update(1, 'date', 'charge', 'category', 'notice')
 
-    #     table.delete()
+        # for (i, date, charge, category, notice) in zip(range(1,len(dates)), dates[1:], charges[1:], categorys[1:], notices[1:]):
+        #     table.update(table1, i, date.get_text(), charge.get_text(), category.get_text(), notice.get_text())
 
-    #     table.delete_id(1)
+        # table.update(1, 'date', 'charge', 'category', 'notice')
 
-    #     table.select()
+        # table.delete(table1)
 
-    #     table.select_id(2)
+        # table.delete_id(table1, 1)
+
+        # table.select(table1)
+
+        # rows = table.select_id(table1, 2)
+
 
 
 with open('submit1.html', 'r') as f:
@@ -68,40 +54,23 @@ with open('submit1.html', 'r') as f:
     categorys = soup.select('.nl_category')
     notices = soup.select('.nl_notice')
 
-    # table = SqlFunction(dbname)
-
-    # table.create()
-
-    # for (i, date, charge, category, notice) in zip(range(1,len(dates)), dates[1:], charges[1:], categorys[1:], notices[1:]):
-    #     table.insert(i, date.get_text(), charge.get_text(), category.get_text(), notice.get_text())
-
-    # table.update(1, 'date', 'charge', 'category', 'notice')
-
-    # table.delete()
-
-    # table.delete_id(1)
-
-    # table.select()
-
-    # table.select_id(2)
-    
-    # table.close()
-    
-
     # with SqlFunction(dbname) as table:
-    #     table.create()
+        # table.create(table1)
 
-    #     for (i, date, charge, category, notice) in zip(range(1,len(dates)), dates[1:], charges[1:], categorys[1:], notices[1:]):
-    #         table.insert(i, date.get_text(), charge.get_text(), category.get_text(), notice.get_text())
+        # for (i, date, charge, category, notice) in zip(range(1,len(dates)), dates[1:], charges[1:], categorys[1:], notices[1:]):
+        #     table.insert(i, date.get_text(), charge.get_text(), category.get_text(), notice.get_text())
 
-    #     table.update(1, 'date', 'charge', 'category', 'notice')
 
-    #     table.delete()
+        # for (i, date, charge, category, notice) in zip(range(1,len(dates)), dates[1:], charges[1:], categorys[1:], notices[1:]):
+        #     table.update(table1, i, date.get_text(), charge.get_text(), category.get_text(), notice.get_text())
 
-    #     table.delete_id(1)
+        # table.update(1, 'date', 'charge', 'category', 'notice')
 
-    #     table.select()
+        # table.delete(table1)
 
-    #     table.select_id(2)
+        # table.delete_id(table1, 1)
 
+        # table.select(table1)
+
+        # rows = table.select_id(table1, 2)
 
