@@ -24,7 +24,7 @@ import settings
 #         print(category.get_text())
 #         print(notice.get_text())
 
-with pen('submit1.html', 'r') as f:
+with open('submit1.html', 'r') as f:
 
     soup = bs4.BeautifulSoup(f, "html.parser")
 
