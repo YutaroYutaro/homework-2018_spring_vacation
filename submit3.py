@@ -51,7 +51,7 @@ with open('submit1.html', 'r') as f:
 
     dates = soup.select('.nl_notice_date')
     charges = soup.select('.nl_div_in_charge')
-    categorys = soup.select('.nl_category')
+    categories = soup.select('.nl_category')
     notices = soup.select('.nl_notice')
 
     # with SqlFunction(dbname) as table:

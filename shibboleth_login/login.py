@@ -36,6 +36,7 @@ class ShibbolethClient(object):
         return {'action': action, 'saml_data': saml_data}
 
     def get(self, url: str, *args, **kwards) -> requests.models.Response:
+        # type: (object, object, object) -> object
         """
         Get page from specified url through Shibboleth authentication.
         :param url:get url
