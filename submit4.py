@@ -25,7 +25,7 @@ AS = settings.AS
 # sql.create(dbname)
 
 while True:
-    now = datetime.datetime.now()  # 現在の日時を取得
+    now = datetime.datetime.now()
     if now.hour == 5 and now.minute == 0:
         with ShibbolethClient(ID, PW) as client:
             res = client.get('https://portal.student.kit.ac.jp/')
@@ -34,13 +34,13 @@ while True:
 
             dates = soup.select('.nl_notice_date')
             charges = soup.select('.nl_div_in_charge')
-            categorys = soup.select('.nl_category')
+            categories = soup.select('.nl_category')
             notices = soup.select('.nl_notice')
 
             twitter = TwitterFunction(CK, CS, AT, AS)
 
             with SqlFunction(dbname) as table:
-                for (i, date, charge, category, notice) in zip(range(1, len(dates)), dates[1:], charges[1:],categorys[1:], notices[1:]):
+                for (i, date, charge, category, notice) in zip(range(1, len(dates)), dates[1:], charges[1:],categories[1:], notices[1:]):
                     table.update(table2, i, date.get_text(), charge.get_text(), category.get_text(), notice.get_text())
 
                 cnt = table.compare(table1, table2)
@@ -60,7 +60,7 @@ while True:
                         twitter.tweet(body)
 
                     for (i, date, charge, category, notice) in zip(range(1, len(dates)), dates[1:], charges[1:],
-                                                                   categorys[1:], notices[1:]):
+                                                                   categories[1:], notices[1:]):
                         table.update(table1, i, date.get_text(), charge.get_text(), category.get_text(),
                                      notice.get_text())
                 else:
